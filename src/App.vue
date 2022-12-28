@@ -28,6 +28,7 @@ import { ref, onMounted } from 'vue'
       </nav>
       
       
+      
     </div>
 
     
@@ -35,7 +36,7 @@ import { ref, onMounted } from 'vue'
   
  
 
-  <RouterView />
+  
   <body>
   <ul class="bg-bubbles">
     
@@ -49,24 +50,31 @@ import { ref, onMounted } from 'vue'
 		    <li></li>
 		    <li></li>
 		    <li></li>
-	</ul></body>
+	</ul><RouterView /></body>
 </template>
 
 <style>
 @import '@/assets/base.css';
-html{
+header{position: relative;
+  left:0%;
+width: auto;}
+html{position: relative;
+  
   overflow: hidden;
   background: linear-gradient(to bottom right, #1e64c0 0%, #e00cd6 100%);
 }
 main {
+  
   position: relative;
-  left: center;
   width: 100%;
   height: 100%;
   z-index: 2;
 }
 
 #app {
+
+  position: relative;
+
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -89,13 +97,13 @@ header {
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: rgba(255, 73, 234, 0.826);
   transition: 0.4s;
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    background-color: hsla(246, 61%, 43%, 0.742);
   }
 }
 
@@ -127,11 +135,6 @@ nav a:first-of-type {
 @media (min-width: 1024px) {
 
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
 
   header {
     display: flex;

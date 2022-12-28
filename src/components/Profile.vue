@@ -16,11 +16,13 @@ function getProfile() {
   })
     .then((resp) => resp.json()) // Transform the data into json
     .then(function (data) {
+        console.log(data);
+        data = data.profile;
         userData.value.username = data.username;
         userData.value.email = data.email;
         userData.value.numero_tel = data.numero_tel;
         userData.value.ruolo = data.ruolo;
-        console.log(userData.value);
+        console.log(userData);
     })
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
@@ -34,9 +36,9 @@ onMounted(() => {
 <template>
     <div>
         <h1>Profile</h1>
-        <p>Username: {{ userData.value.username }}</p>
-        <p>Email: {{ userData.value.email }}</p>
-        <p>Numero di telefono: {{ userData.value.numero_tel }}</p>
-        <p>Ruolo: {{ userData.value.ruolo }}</p>
+        <p>Username: {{ userData.username }}</p>
+        <p>Email: {{ userData.email }}</p>
+        <p>Numero di telefono: {{ userData.numero_tel }}</p>
+        <p>Ruolo: {{ userData.ruolo }}</p>
     </div>
 </template>

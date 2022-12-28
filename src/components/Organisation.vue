@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from "vue-router";
 import { ref, onMounted } from "vue";
 import {
   loggedUser
@@ -16,7 +17,7 @@ function getOrganisations() {
   })
     .then((resp) => resp.json()) // Transform the data into json
     .then(function (data) {
-      listaOrganisations.value = data.nomi_organizzazioni;
+      listOrganisations.value = data.nomi_organizzazioni;
     })
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
@@ -32,7 +33,7 @@ onMounted(() => {
         <h1>Organisations</h1>
         <ul>
             <li v-for="org in listOrganisations" :key="org">
-                {{ org }}
+                <RouterLink :to="'/organisations/' + org + '/info'">{{ org }}</RouterLink>
             </li>
         </ul>
     </div>
