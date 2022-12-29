@@ -1,4 +1,7 @@
 <script setup>
+import { loggedUser } from '../states/loggedUser';
+
+loggedUser.currentOrganisation = undefined;
 </script>
 
 <template>

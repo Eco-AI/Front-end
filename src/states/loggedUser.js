@@ -5,6 +5,7 @@ import { reactive } from 'vue'
 const loggedUser = reactive({
     token: undefined,
     username: undefined,
+    currentOrganisation: undefined,
 })
 
 function setLoggedUser (data) {

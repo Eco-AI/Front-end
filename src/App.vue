@@ -20,14 +20,20 @@ import { ref, onMounted } from 'vue'
         
       </nav>
 
-      <nav v-if="loggedUser.token">
+      <nav v-if="loggedUser.token && !loggedUser.currentOrganisation">
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/organisations">My organisations</RouterLink>
+        <RouterLink to="/profile">Profilo</RouterLink>
+        <RouterLink to="/organisations">Le mie organizzazioni</RouterLink>
         <RouterLink to="/logout">Logout</RouterLink>
       </nav>
-      
-      
+
+      <nav v-if="loggedUser.token && loggedUser.currentOrganisation">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink :to="'/organisations/' + loggedUser.currentOrganisation + '/robots'">Elenco robot</RouterLink>
+        <RouterLink to="/plans">Piani di puliza</RouterLink>
+        
+      </nav>
+
       
     </div>
 

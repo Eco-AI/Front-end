@@ -33,18 +33,35 @@ function getOrganizationInfo(name) {
             orgInfo.value = json.data;
         })
         .catch((error) => console.error(error)); // If there is any error you will catch them here
-
+    
+    loggedUser.currentOrganisation = name;
     return orgInfo;
-}
+};
+
+</script>
+
+<script setup>
+
+function deleteOrganization(name) {
+    console.log("bruh")
+    fetch(API_URL + "/organisation/" + name, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", "x-access-token": loggedUser.token }
+    }).catch((error) => console.error(error)); // If there is any error you will catch them here
+
+    loggedUser.currentOrganisation = undefined;
+};
 
 </script>
 
 <template>
-    <div>
-        <h1>{{ this.orgInfo.value.name }}'s Info</h1>
+    <form>
+        <h1>Benvenuto a {{ this.orgInfo.value.name }}</h1>
         <ul>
             <li>Nome: {{ this.orgInfo.value.name }}</li>
             <li>Numero di impiegati: {{ this.orgInfo.value.employee_num }}</li>
         </ul>
-    </div>
+        <br>
+        <button type="button" @click="deleteOrganization(this.orgInfo.value.name)">Elimina organizzazione</button>    
+    </form>
 </template>
