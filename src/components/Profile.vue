@@ -22,6 +22,7 @@ function getProfile() {
         userData.value.email = data.email;
         userData.value.numero_tel = data.numero_tel;
         userData.value.ruolo = data.ruolo;
+        loggedUser.ruolo = data.ruolo;
         console.log(userData);
     })
     .catch((error) => console.error(error)); // If there is any error you will catch them here

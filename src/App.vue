@@ -24,6 +24,7 @@ import { ref, onMounted } from 'vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/profile">Profilo</RouterLink>
         <RouterLink to="/organisations">Le mie organizzazioni</RouterLink>
+        <RouterLink v-if="loggedUser.ruolo == 'admin'" to="/robots/create">Crea robot</RouterLink>
         <RouterLink to="/logout">Logout</RouterLink>
       </nav>
 
@@ -298,6 +299,9 @@ form input:focus {
   width: 300px;
   color: #1e64c0;
 }
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
 form button {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -317,6 +321,9 @@ form button {
 }
 form button:hover {
   background-color: #f5f7f9;
+}
+input, label {
+  display: inline-block;
 }
 
 </style>
