@@ -80,6 +80,22 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/RobotInfoView.vue')
+    },
+    {
+      path: '/organisations/:org_name/plans',
+      name: 'plans',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PlanView.vue')
+    },
+    {
+      path: '/organisations/:org_name/plans/:id',
+      name: 'plan-info',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PlanInfoView.vue')
     }
   ]
 })

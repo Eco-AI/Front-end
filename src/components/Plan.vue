@@ -1,0 +1,115 @@
+<script>
+import { RouterLink } from "vue-router";
+import { ref, onMounted } from "vue";
+import Datepicker from '@vuepic/vue-datepicker';
+    import '@vuepic/vue-datepicker/dist/main.css'
+import {
+  loggedUser
+} from "../states/loggedUser.js";
+
+const HOST = import.meta.env.VITE_API_HOST || `http://localhost:8080`;
+const API_URL = HOST;
+
+export default {
+  name: "Plan",
+  props: {
+    org_name: String
+  },
+  components: { Datepicker },
+  data() {
+    return {
+      listPlans: getPlans(this.org_name),
+      date: null,
+    }
+  }
+}
+
+function getPlans(name) {
+  let listPlans = ref([]);
+  fetch(API_URL + "/piano_pulizia/list?" + new URLSearchParams({ nome_org: name }), {
+    method: "GET",
+    headers: { "Content-Type": "application/json", "x-access-token": loggedUser.token }
+  })
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function (data) {
+      listPlans.value = data;
+    })
+    .catch((error) => console.error(error)); // If there is any error you will catch them here
+
+  console.log(listPlans)
+  return listPlans;
+}
+
+</script>
+
+<script setup>
+
+const zone_id = ref("");
+const warningMessage = ref('')
+const successMessage = ref('')
+
+function createPlanButton(org) {
+  warningMessage.value = ""
+  successMessage.value = ""
+
+  createPlan(id_robot.value, org).catch(err => console.log(err))
+}
+
+async function createPlan(id, org) {
+  let response = await fetch(API_URL + "/piano_pulizia", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-access-token': loggedUser.token },
+    body: JSON.stringify({
+      id_zona: zone_id.value,
+      data_inzio: this.date[0],
+      data_fine: this.date[1],
+      nome_organizzazione: this.org_name
+    })
+  })
+
+  if (response.ok) {
+    let json = await response.json();
+    console.log(json);
+
+    successMessage.value = 'Robot associato con successo a ' + org
+  } else {
+    if (response.status == 404) {
+      warningMessage.value = "Robot non trovato"
+    } else if (response.status == 409) {
+      warningMessage.value = "Robot già associato ad un'organizzazione"
+    } else {
+      warningMessage.value = "Errore sconosciuto"
+    }
+  }
+}
+
+</script>
+
+<template>
+  <div>
+    <h1>Piani di pulizia ({{ this.listPlans.length }})</h1>
+    <ul>
+      <li v-for="plan in this.listPlans" :key="plan">
+        <RouterLink :to="'/organisations/' + this.org_name + '/plans/' + plan">{{ plan }}</RouterLink>
+      </li>
+      <h3 v-if="this.listPlans.length == 0">No robots</h3>
+    </ul>
+  </div>
+  <form>
+    <h1> Crea un piano di pulizia </h1>
+    <br />
+    <div style="float:left;margin-right:20px;">
+      <label> Zona </label>
+      <input v-model="zone_id" placeholder="ID" />
+      <button type="button" @click="createPlanButton(this.org_name)">Crea piano di pulizia</button>
+    </div>
+    <div style="float:left;margin-right:20px;">
+      <label> Durata del piano </label>
+      <Datepicker v-model="date" range></Datepicker>
+    </div>
+
+    <br />
+    <span style="color: red"> {{ warningMessage }} </span>
+    <span style="color: white"> {{ successMessage }} </span>
+  </form>
+</template>

@@ -9,6 +9,7 @@ const HOST = import.meta.env.VITE_API_HOST || `http://localhost:8080`;
 const API_URL = HOST;
 
 const capienza = ref('')
+const robot = ref({})
 const warningMessage = ref('')
 const successMessage = ref('')
 
@@ -31,6 +32,7 @@ async function createRobot(capienza) {
 
     if (response.ok) {
         let json = await response.json();
+        robot.value = json;
         console.log(json);
 
         successMessage.value = 'Robot creato con successo'
@@ -58,5 +60,10 @@ async function createRobot(capienza) {
             <span style="color: red"> {{ warningMessage }} </span>
             <span style="color: white"> {{ successMessage }} </span>
         </form>
+        <br><br><br><br>
+        <div>
+            <h3 v-if="robot.id"> ID: {{ robot.id }} </h3>
+            <h3 v-if="robot.token"> Token: {{ robot.token }} </h3>
+        </div>
     </div>
 </template>

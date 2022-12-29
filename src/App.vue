@@ -31,7 +31,7 @@ import { ref, onMounted } from 'vue'
       <nav v-if="loggedUser.token && loggedUser.currentOrganisation">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink :to="'/organisations/' + loggedUser.currentOrganisation + '/robots'">Elenco robot</RouterLink>
-        <RouterLink to="/plans">Piani di puliza</RouterLink>
+        <RouterLink :to="'/organisations/' + loggedUser.currentOrganisation + '/plans'">Piani di puliza</RouterLink>
         
       </nav>
 
