@@ -7,6 +7,8 @@ const loggedUser = reactive({
     username: undefined,
     ruolo: undefined,
     currentOrganisation: undefined,
+    currentPlan: undefined,
+    currentTrash: undefined,
 })
 
 function setLoggedUser (data) {

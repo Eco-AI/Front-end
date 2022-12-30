@@ -2,6 +2,8 @@
 import { loggedUser } from '../states/loggedUser';
 
 loggedUser.currentOrganisation = undefined;
+loggedUser.currentPlan = undefined;
+loggedUser.currentTrash = undefined;
 </script>
 
 <template>

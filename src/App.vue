@@ -19,20 +19,21 @@ import { ref, onMounted } from 'vue'
         <RouterLink to="/signup">Sign up</RouterLink>
         
       </nav>
-
-      <nav v-if="loggedUser.token && !loggedUser.currentOrganisation">
+      <nav v-else-if="!loggedUser.currentOrganisation">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/profile">Profilo</RouterLink>
         <RouterLink to="/organisations">Le mie organizzazioni</RouterLink>
         <RouterLink v-if="loggedUser.ruolo == 'admin'" to="/robots/create">Crea robot</RouterLink>
         <RouterLink to="/logout">Logout</RouterLink>
       </nav>
-
-      <nav v-if="loggedUser.token && loggedUser.currentOrganisation">
+      <nav v-else-if="!loggedUser.currentPlan">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink :to="'/organisations/' + loggedUser.currentOrganisation + '/robots'">Elenco robot</RouterLink>
         <RouterLink :to="'/organisations/' + loggedUser.currentOrganisation + '/plans'">Piani di puliza</RouterLink>
-        
+      </nav>
+      <nav v-else>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink :to="'/organisations/' + loggedUser.currentOrganisation + '/plans/' + loggedUser.currentPlan + '/toclassify'">Rifiuti non riconosciuti</RouterLink>
       </nav>
 
       

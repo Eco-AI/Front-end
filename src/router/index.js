@@ -74,6 +74,14 @@ const router = createRouter({
       component: () => import('../views/RobotView.vue')
     },
     {
+      path: '/organisations/:org_name/addrobot',
+      name: 'add-robot',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AddRobotView.vue')
+    },
+    {
       path: '/organisations/:org_name/robots/:id',
       name: 'robot-info',
       // route level code-splitting
@@ -96,6 +104,22 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/PlanInfoView.vue')
+    },
+    {
+      path: '/organisations/:org_name/plans/:id/toclassify',
+      name: 'trash-toclassify',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/TrashView.vue')
+    },
+    {
+      path: '/organisations/:org_name/plans/:plan_id/toclassify/:trash_id',
+      name: 'trash-info',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/TrashInfoView.vue')
     }
   ]
 })

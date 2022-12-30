@@ -9,8 +9,8 @@ import {
 const HOST = import.meta.env.VITE_API_HOST || `http://localhost:8080`;
 const API_URL = HOST;
 
-const username = ref("test");
-const password = ref("1234#");
+const username = ref("");
+const password = ref("");
 
 // const loggedUser = ref({})
 // const loggedUser = defineProps(['loggedUser'])
@@ -47,8 +47,8 @@ function logout() {
     </span>
 
     <span v-if="!loggedUser.token">
-      <input name="username" v-model="username" />
-      <input name="password" type="password" v-model="password" />
+      <input name="username" v-model="username" placeholder="username"/>
+      <input name="password" type="password" v-model="password" placeholder="password"/>
       <button type="button" @click="login">LogIn</button>
     </span>
   </form>

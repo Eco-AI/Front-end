@@ -48,22 +48,22 @@ const zone_id = ref("");
 const warningMessage = ref('')
 const successMessage = ref('')
 
-function createPlanButton(org) {
+function createPlanButton(org, start_date, end_date) {
   warningMessage.value = ""
   successMessage.value = ""
 
-  createPlan(id_robot.value, org).catch(err => console.log(err))
+  createPlan(org, start_date, end_date).catch(err => console.log(err))
 }
 
-async function createPlan(id, org) {
+async function createPlan(org, start_date, end_date) {
   let response = await fetch(API_URL + "/piano_pulizia", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-access-token': loggedUser.token },
     body: JSON.stringify({
       id_zona: zone_id.value,
-      data_inzio: this.date[0],
-      data_fine: this.date[1],
-      nome_organizzazione: this.org_name
+      data_inizio: start_date,
+      data_fine: end_date,
+      nome_organizzazione: org
     })
   })
 
@@ -71,12 +71,10 @@ async function createPlan(id, org) {
     let json = await response.json();
     console.log(json);
 
-    successMessage.value = 'Robot associato con successo a ' + org
+    successMessage.value = 'Piano di pulizia creato con successo'
   } else {
     if (response.status == 404) {
-      warningMessage.value = "Robot non trovato"
-    } else if (response.status == 409) {
-      warningMessage.value = "Robot già associato ad un'organizzazione"
+      warningMessage.value = "Zona non trovata"
     } else {
       warningMessage.value = "Errore sconosciuto"
     }
@@ -92,7 +90,7 @@ async function createPlan(id, org) {
       <li v-for="plan in this.listPlans" :key="plan">
         <RouterLink :to="'/organisations/' + this.org_name + '/plans/' + plan">{{ plan }}</RouterLink>
       </li>
-      <h3 v-if="this.listPlans.length == 0">No robots</h3>
+      <h3 v-if="this.listPlans.length == 0">Nessun piano di pulizia</h3>
     </ul>
   </div>
   <form>
@@ -101,7 +99,7 @@ async function createPlan(id, org) {
     <div style="float:left;margin-right:20px;">
       <label> Zona </label>
       <input v-model="zone_id" placeholder="ID" />
-      <button type="button" @click="createPlanButton(this.org_name)">Crea piano di pulizia</button>
+      <button type="button" @click="createPlanButton(this.org_name, this.date[0], this.date[1])">Crea piano di pulizia</button>
     </div>
     <div style="float:left;margin-right:20px;">
       <label> Durata del piano </label>

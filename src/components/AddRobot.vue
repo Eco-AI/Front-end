@@ -15,25 +15,9 @@ export default {
     },
     data () {
         return {
-            listRobots: getRobots(this.org_name)
+            org_name: this.org_name,
         }
     }
-}
-
-function getRobots(name) {
-  let listRobots = ref([]);
-  fetch(API_URL + "/organisation/" + name + "/robots", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" , "x-access-token": loggedUser.token}
-  })
-    .then((resp) => resp.json()) // Transform the data into json
-    .then(function (data) {
-      listRobots.value = data;
-    })
-    .catch((error) => console.error(error)); // If there is any error you will catch them here
-
-    console.log(listRobots)
-    return listRobots;
 }
 
 </script>
@@ -76,16 +60,17 @@ async function addRobot(id, org) {
 </script>
 
 <template>
-    <div>
-        <h1>Robots ({{ this.listRobots.length }})</h1>
-        <ul>
-            <li v-for="robot in this.listRobots" :key="robot">
-                <RouterLink :to="'/organisations/' + this.org_name + '/robots/' + robot">{{ robot }}</RouterLink>
-            </li>
-            <h3 v-if="this.listRobots.length == 0">No robots</h3>
-        </ul>
-    </div>
-    <div>
-        <RouterLink :to="'/organisations/' + this.org_name + '/addrobot'">Aggiungi un robot</RouterLink>
-    </div>
+    <form>
+        <h1> Aggiungi un robot </h1>
+            <br />
+            <div style="float:left;margin-right:20px;">
+                <label> ID Robot </label>
+                <input v-model="id_robot" placeholder="ID" />
+                <button type="button" @click="addRobotButton(this.org_name)">Associa robot</button>
+            </div>
+            
+            <br />
+            <span style="color: red"> {{ warningMessage }} </span>
+            <span style="color: white"> {{ successMessage }} </span>
+        </form>
 </template>
