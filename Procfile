@@ -1,2 +1,2 @@
-web:  npm run start -- --port 80
+web:  npm run start 
 

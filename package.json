@@ -2,7 +2,7 @@
   "name": "easylibvue",
   "version": "0.0.0",
   "scripts": {
-    "start": "vite",
+    "start": "vite --port 80",
     "build": "vite build",
     "preview": "vite preview --port 5050"
   },
