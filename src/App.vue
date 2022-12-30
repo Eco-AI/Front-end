@@ -323,6 +323,26 @@ form button {
 form button:hover {
   background-color: #f5f7f9;
 }
+button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: 0;
+  background-color: white;
+  color: #1e64c0;
+  width: 250px;
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  transition-duration: 0.25s;
+  font-weight: 30;
+}
+button:hover {
+  background-color: #f5f7f9;
+}
 input, label {
   display: inline-block;
 }

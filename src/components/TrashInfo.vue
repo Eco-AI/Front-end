@@ -7,18 +7,37 @@ import {
 export default {
     name: "TrashInfo",
     props: {
+        org_name: String,
         plan_id: Number,
         trash_id: Number,
         zone_id: Number
     },
-    data () {
+    methods: {
+        classifyTrash
+    },
+    data() {
         return {
-            trash_info: getTrashInfo(this.plan_id, this.trash_id, this.zone_id)
+            trash_info: getTrashInfo(this.plan_id, this.trash_id, this.zone_id),
+            wantToClassify: wantToClassify,
+            categories: categories,
+            classification: classification
         }
     }
 }
 const HOST = import.meta.env.VITE_API_HOST || `http://localhost:8080`;
 const API_URL = HOST;
+
+const wantToClassify = ref(false);
+const categories = ref([
+    "Plastica",
+    "Vetro",
+    "Carta",
+    "Metallo",
+    "Organico",
+    "Indifferenziato",
+    "Non riconosciuto"
+]);
+const classification = ref("");
 
 function getTrashInfo(plan_id, trash_id, zone_id) {
     console.log(trash_id)
@@ -48,18 +67,24 @@ function getTrashInfo(plan_id, trash_id, zone_id) {
 };
 
 function classifyTrash(trash_id) {
+    console.log("Chiamata a classifica rifiuto: " + wantToClassify.value);
+    if (!wantToClassify.value) {
+        wantToClassify.value = true;
+        return;
+    }
+
+    console.log("Classificazione rifiuto: " + classification.value)
+    
     fetch(API_URL + "/rifiuto/" + trash_id, {
         method: "PATCH",
         headers: { "Content-Type": "application/json", "x-access-token": loggedUser.token },
         body: JSON.stringify({
-            classificazione: "classificato"
+            classificazione: classification.value
         })
-    })
-        .then((resp) => resp.json()) // Transform the data into json
-        .then(function (json) {
-            console.log(json)
-        })
-        .catch((error) => console.error(error)); // If there is any error you will catch them here
+    }).catch((error) => console.error(error)); // If there is any error you will catch them here
+
+    wantToClassify.value = false;
+    this.$router.replace("/organisations/" + this.org_name + "/plans/" + this.plan_id + "/toclassify");
 };
 
 </script>
@@ -72,9 +97,19 @@ function classifyTrash(trash_id) {
             <li>Zona: {{ this.trash_info.id_zona }}</li>
             <li>Stato classificazione: {{ this.trash_info.classificazione }}</li>
             <li>Posizione rilevata: {{ this.trash_info.posizione }}</li>
-            <button @click="classifyTrash(this.trash_info._id)">Classifica</button>
-            <h2>Foto</h2>
-            <img :src="this.trash_info.URL_foto" width="500" height="400">
+            <div style="float: right; margin-top: -155px;">
+                <h1>Foto rifiuto</h1>
+                <img :src="this.trash_info.URL_foto" width="500" height="400">
+            </div>
+            <br>
+            <div v-if="this.wantToClassify">
+                <h2>Classifica rifiuto</h2>
+                <select v-model="this.classification">
+                    <option v-for="category in this.categories" :value="category">{{ category }}</option>
+                </select>
+            </div>
         </ul>
     </form>
+    <br>
+    <button style="float: left; margin-left:30px" @click="this.classifyTrash(this.trash_info._id)">Classifica rifiuto</button>
 </template>
