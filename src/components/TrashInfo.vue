@@ -47,6 +47,21 @@ function getTrashInfo(plan_id, trash_id, zone_id) {
     return trashInfo;
 };
 
+function classifyTrash(trash_id) {
+    fetch(API_URL + "/rifiuto/" + trash_id, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", "x-access-token": loggedUser.token },
+        body: JSON.stringify({
+            classificazione: "classificato"
+        })
+    })
+        .then((resp) => resp.json()) // Transform the data into json
+        .then(function (json) {
+            console.log(json)
+        })
+        .catch((error) => console.error(error)); // If there is any error you will catch them here
+};
+
 </script>
 
 <template>
@@ -57,6 +72,7 @@ function getTrashInfo(plan_id, trash_id, zone_id) {
             <li>Zona: {{ this.trash_info.id_zona }}</li>
             <li>Stato classificazione: {{ this.trash_info.classificazione }}</li>
             <li>Posizione rilevata: {{ this.trash_info.posizione }}</li>
+            <button @click="classifyTrash(this.trash_info._id)">Classifica</button>
             <h2>Foto</h2>
             <img :src="this.trash_info.URL_foto" width="500" height="400">
         </ul>

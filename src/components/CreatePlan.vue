@@ -18,26 +18,10 @@ export default {
   components: { Datepicker },
   data() {
     return {
-      listPlans: getPlans(this.org_name),
+      org_name: this.org_name,
       date: null,
     }
   }
-}
-
-function getPlans(name) {
-  let listPlans = ref([]);
-  fetch(API_URL + "/piano_pulizia/list?" + new URLSearchParams({ nome_org: name }), {
-    method: "GET",
-    headers: { "Content-Type": "application/json", "x-access-token": loggedUser.token }
-  })
-    .then((resp) => resp.json()) // Transform the data into json
-    .then(function (data) {
-      listPlans.value = data;
-    })
-    .catch((error) => console.error(error)); // If there is any error you will catch them here
-
-  console.log(listPlans)
-  return listPlans;
 }
 
 </script>
@@ -84,16 +68,21 @@ async function createPlan(org, start_date, end_date) {
 </script>
 
 <template>
-  <div>
-    <h1>Piani di pulizia ({{ this.listPlans.length }})</h1>
-    <ul>
-      <h3 v-if="!Array.isArray(listPlans) || !listPlans.length">Nessun piano di pulizia</h3>
-      <li v-else v-for="plan in this.listPlans" :key="plan">
-        <RouterLink :to="'/organisations/' + this.org_name + '/plans/' + plan">{{ plan }}</RouterLink>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <RouterLink :to="'/organisations/' + this.org_name + '/plans/create'">Crea piano di pulizia</RouterLink>
-  </div>
+  <form>
+    <h1> Crea un piano di pulizia </h1>
+    <br />
+    <div style="float:left;margin-right:20px;">
+      <label> Zona </label>
+      <input v-model="zone_id" placeholder="ID" />
+      <button type="button" @click="createPlanButton(this.org_name, this.date[0], this.date[1])">Crea piano di pulizia</button>
+    </div>
+    <div style="float:left;margin-right:20px;">
+      <label> Durata del piano </label>
+      <Datepicker v-model="date" range></Datepicker>
+    </div>
+
+    <br />
+    <span style="color: red"> {{ warningMessage }} </span>
+    <span style="color: white"> {{ successMessage }} </span>
+  </form>
 </template>

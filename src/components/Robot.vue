@@ -79,10 +79,10 @@ async function addRobot(id, org) {
     <div>
         <h1>Robots ({{ this.listRobots.length }})</h1>
         <ul>
-            <li v-for="robot in this.listRobots" :key="robot">
+            <h3 v-if="!Array.isArray(listRobots) || !listRobots.length">Non ci sono robot associati a questa organizzazione</h3>
+            <li v-else v-for="robot in this.listRobots" :key="robot">
                 <RouterLink :to="'/organisations/' + this.org_name + '/robots/' + robot">{{ robot }}</RouterLink>
             </li>
-            <h3 v-if="this.listRobots.length == 0">No robots</h3>
         </ul>
     </div>
     <div>

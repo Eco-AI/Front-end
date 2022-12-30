@@ -9,10 +9,6 @@ const HOST = import.meta.env.VITE_API_HOST || `http://localhost:8080`;
 const API_URL = HOST;
 
 let listOrganisations = ref([]);
-const organization_name = ref("");
-const employee_number = ref("");
-const warningMessage = ref('')
-const successMessage = ref('')
 
 function getOrganisations() {
   fetch(API_URL + "/utente/organisations", {
@@ -26,24 +22,6 @@ function getOrganisations() {
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
 
-function addOrganisationButton() {
-  addOrganisation(organization_name.value, employee_number.value).catch(err => console.log(err))
-}
-
-async function addOrganisation(name, employee_number) {
-  let response = await fetch(API_URL + "/organisation", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-access-token': loggedUser.token },
-    body: JSON.stringify({ name: name, employee_num: employee_number })
-  })
-
-  if (response.ok) {
-    successMessage.value = "Organizzazione creata con successo"
-  } else {
-    warningMessage.value = "Errore nella creazione dell'organizzazione"
-  }
-}
-
 onMounted(() => {
   getOrganisations();
 });
@@ -54,7 +32,8 @@ onMounted(() => {
   <div>
     <h1>Organisations</h1>
     <ul>
-      <li v-for="org in listOrganisations" :key="org">
+      <h3 v-if="!Array.isArray(listOrganisations) || !listOrganisations.length">Non sei ancora iscritto a nessuna organizzazione</h3>
+      <li v-else v-for="org in listOrganisations" :key="org">
         <RouterLink :to="'/organisations/' + org + '/info'">{{ org }}</RouterLink>
       </li>
     </ul>

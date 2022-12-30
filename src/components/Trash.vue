@@ -58,10 +58,10 @@ function getTrash(name, id) {
   <div>
     <h1>Rifiuti non riconosciuti ({{ this.listTrash.length }})</h1>
     <ul>
-      <li v-for="trash in this.listTrash" :key="trash">
+      <h3 v-if="!Array.isArray(listTrash) || !listTrash.length">Non ci sono rifiuti da classificare</h3>
+      <li v-else v-for="trash in this.listTrash" :key="trash">
         <RouterLink :to="'/organisations/' + this.org_name + '/plans/' + this.plan_id + '/toclassify/' + trash._id + '?id_zona=' + zone_id">{{ trash._id }}</RouterLink>
       </li>
-      <h3 v-if="this.listTrash.length == 0">Nessun rifiuto da classificare</h3>
     </ul>
   </div>
 </template>

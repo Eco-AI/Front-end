@@ -14,6 +14,9 @@ const warningMessage = ref('')
 const successMessage = ref('')
 
 function addOrganisationButton() {
+  warningMessage.value = ""
+  successMessage.value = ""
+  
   addOrganisation(organization_name.value, employee_number.value).catch(err => console.log(err))
 }
 
