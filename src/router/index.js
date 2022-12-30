@@ -49,14 +49,14 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/OrganisationView.vue')
     },
-    {
+    /*{
       path: '/organisations/create',
       name: 'create-organisation',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CreateOrganisationView.vue')
-    },
+    },*/
     {
       path: '/organisations/:org_name/info',
       name: 'organisation-info',
@@ -120,7 +120,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/TrashInfoView.vue')
-    }
+    }*/
   ]
 })
 
