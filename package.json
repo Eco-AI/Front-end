@@ -2,8 +2,9 @@
   "name": "ecoAIvue",
   "version": "0.0.0",
   "scripts": {
-    "start": "vite",
-    "build": "vite build"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^3.6.3",
