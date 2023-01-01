@@ -12,6 +12,7 @@
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^8.5.1",
     "vue": "^3.2.33",
+    "vite": "^2.4.0",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {
