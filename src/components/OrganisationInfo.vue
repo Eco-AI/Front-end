@@ -10,11 +10,11 @@ export default {
         org_name: String,
         org_info: Object
     },
-    created () {
-        console.log("PLEASE WORK: " + this.org_name)
-        this.orgInfo = getOrganizationInfo(this.org_name);
-        console.log(this.orgInfo)
-    },
+    data () {
+        return {
+            org_info: getOrganizationInfo(this.org_name)
+        }
+    }
 }
 
 
