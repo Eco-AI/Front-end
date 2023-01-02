@@ -17,7 +17,7 @@ import { ref, onMounted } from 'vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/login">Login</RouterLink>
         <RouterLink to="/signup">Sign up</RouterLink>
-        
+        <RouterLink to="/api/robot">Test robot API</RouterLink>
       </nav>
       <nav v-else-if="!loggedUser.currentOrganisation">
         <RouterLink to="/">Home</RouterLink>

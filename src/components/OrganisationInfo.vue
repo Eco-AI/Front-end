@@ -12,7 +12,7 @@ export default {
     },
     created () {
         console.log("PLEASE WORK: " + this.org_name)
-        this.orgInfo = getOrganizationInfo(this.org_name);
+        this.org_info = getOrganizationInfo(this.org_name);
         console.log(this.orgInfo)
     },
 }
