@@ -66,7 +66,7 @@ function testAPI() {
         })
             .then(function (resp) {
                 if (resp.status === 200) {
-                    successMessage.value = 'Robot aggiornato con successo'
+                    successMessage.value = 'Parametri aggiornati con successo'
                 } else {
                     warningMessage.value = 'Errore nell\'aggiornamento del robot'
                 }
@@ -79,15 +79,16 @@ function testAPI() {
         })
             .then(function (resp) {
                 if (resp.status === 200) {
-                    let data = resp.json()
-                    successMessage.value = 'Piano di pulizia assegnato con successo'
+                    resp.json().then(function(data) {
+                        successMessage.value = 'Piano di pulizia assegnato con successo'
 
-                    dataToShow.value = "ID piano: " + data._id + "\n";
-                    dataToShow.value += "ID robot: " + data.ID_robot + "\n";
-                    dataToShow.value += "ID zona: " + data.ID_zona + "\n";
-                    dataToShow.value += "Data inzio: " + data.data_inizio + "\n";
-                    dataToShow.value += "Data fine: " + data.data_fine + "\n";
-                    dataToShow.value += "Organizzazione: " + data.nome_organizzazione + "\n";
+                        dataToShow.value = "ID piano: " + data._id + "\n";
+                        dataToShow.value += "ID robot: " + data.ID_robot + "\n";
+                        dataToShow.value += "ID zona: " + data.ID_zona + "\n";
+                        dataToShow.value += "Data inzio: " + data.data_inizio + "\n";
+                        dataToShow.value += "Data fine: " + data.data_fine + "\n";
+                        dataToShow.value += "Organizzazione: " + data.nome_organizzazione + "\n";
+                    })
                 } else {
                     warningMessage.value = 'Errore nell\'assegnamento del piano di pulizia'
                 }
@@ -100,15 +101,16 @@ function testAPI() {
         })
             .then(function (resp) {
                 if (resp.status === 200) {
-                    let data = resp.json()
-                    successMessage.value = 'Piano di pulizia assegnato con successo'
+                    resp.json().then(function(data) {
+                        successMessage.value = 'Piano di pulizia assegnato con successo'
 
-                    dataToShow.value = "ID piano: " + data._id + "\n";
-                    dataToShow.value += "ID robot: " + data.ID_robot + "\n";
-                    dataToShow.value += "ID zona: " + data.ID_zona + "\n";
-                    dataToShow.value += "Data inzio: " + data.data_inizio + "\n";
-                    dataToShow.value += "Data fine: " + data.data_fine + "\n";
-                    dataToShow.value += "Organizzazione: " + data.nome_organizzazione + "\n";
+                        dataToShow.value = "ID piano: " + data._id + "\n";
+                        dataToShow.value += "ID robot: " + data.ID_robot + "\n";
+                        dataToShow.value += "ID zona: " + data.ID_zona + "\n";
+                        dataToShow.value += "Data inzio: " + data.data_inizio + "\n";
+                        dataToShow.value += "Data fine: " + data.data_fine + "\n";
+                        dataToShow.value += "Organizzazione: " + data.nome_organizzazione + "\n";
+                    })
                 } else {
                     warningMessage.value = 'Errore nell\'assegnamento del piano di pulizia'
                 }
@@ -121,16 +123,16 @@ function testAPI() {
         })
             .then(function (resp) {
                 if (resp.status === 200) {
-                    let data = resp.json();
-                    console.log(data)
-                    successMessage.value = 'Posizione dei contenitori richiesta con successo'
-                    let containers = data.contenitori_rifiuti;
-                    
-                    for (let i = 0; i < containers.length; i++) {
-                        let container = containers[i];
-                        dataToShow.value += "Tipologia: " + container.tipologia + "\n";
-                        dataToShow.value += "Posizione: " + container.posizione + "\n";
-                    }
+                    resp.json().then(function(data) {
+                        successMessage.value = 'Posizione dei contenitori richiesta con successo'
+                        let containers = data.contenitori_rifiuti;
+                        
+                        for (let i = 0; i < containers.length; i++) {
+                            let container = containers[i];
+                            dataToShow.value += "Tipologia: " + container.tipologia + "\n";
+                            dataToShow.value += "Posizione: " + container.posizione + "\n";
+                        }
+                    })
                 } else {
                     warningMessage.value = 'Errore nella richiesta della posizione dei contenitori'
                 }
@@ -144,6 +146,8 @@ function testAPI() {
 <template>
     <div>
         <h1>Test Robot API</h1>
+        <h2>In questa pagina puoi simulare le chiamate alle API del robot</h2>
+        <h3>Il robot di esempio è {{ example_robot.id }}</h3>
         <select v-model="API_chosen">
             <option v-for="API in APIs" :value="API">{{ API }}</option>
         </select>

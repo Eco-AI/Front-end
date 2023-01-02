@@ -17,7 +17,6 @@ export default {
     }
 }
 
-
 const HOST = import.meta.env.VITE_API_HOST || `http://localhost:8080`;
 const API_URL = HOST;
 
@@ -31,6 +30,7 @@ function getOrganizationInfo(name) {
         .then((resp) => resp.json()) // Transform the data into json
         .then(function (json) {
             orgInfo.value = json.data;
+            console.log(orgInfo)
         })
         .catch((error) => console.error(error)); // If there is any error you will catch them here
     
@@ -56,12 +56,12 @@ function deleteOrganization(name) {
 
 <template>
     <form>
-        <h1>Benvenuto a {{ this.org_info.name }}</h1>
+        <h1>Benvenuto a {{ $data.org_info.name }}</h1>
         <ul>
-            <li>Nome: {{ this.org_info.name }}</li>
-            <li>Numero di impiegati: {{ this.org_info.employee_num }}</li>
+            <li>Nome: {{ $data.org_info.name }}</li>
+            <li>Numero di impiegati: {{ $data.org_info.employee_num }}</li>
         </ul>
         <br>
-        <button type="button" @click="deleteOrganization(this.org_info.name)">Elimina organizzazione</button>    
+        <button type="button" @click="deleteOrganization($data.org_info.name)">Elimina organizzazione</button>    
     </form>
 </template>
