@@ -16,6 +16,7 @@ const APIs = ref([
     "Richiedi posizione dei contenitori"
 ])
 
+const image_url = ref("")
 const capienza_attuale = ref(0);
 const temperatura = ref(0);
 const batteria = ref(0);
@@ -40,13 +41,17 @@ function testAPI() {
     dataToShow.value = ""
 
     if (API_chosen.value === "Richiedi riconoscimento rifiuto") {
-        let image = document.getElementById("image").files[0];
-        let formData = new FormData();
-        formData.append("image", image);
         fetch(API_URL + "/rifiuto", {
             method: "POST",
-            headers: { "x-access-token": example_robot.value.token },
-            body: formData
+            headers: { "Content-Type": "application/json", "x-access-token": example_robot.value.token },
+            body: JSON.stringify({
+                URL_foto: image_url.value,
+                posizione: {
+                    LAT: 0,
+                    LON: 0,
+                    ALT: 0
+                }
+            })
         })
             .then((resp) => resp.json()) // Transform the data into json
             .then(function (data) {
@@ -153,8 +158,8 @@ function testAPI() {
         </select>
     </div>
     <div v-if="API_chosen === 'Richiedi riconoscimento rifiuto'">
-        <label for="image">Immagine:</label><br>
-        <input type="file" id="image" name="image" accept="image/*">
+        <label for="image">URL immagine:</label><br>
+        <input id="image_url" name="image_url" v-model="image_url"><br>
     </div>
     <div v-if="API_chosen === 'Aggiorna parametri robot'">
         <label for="capienza_attuale">Capienza attuale:</label><br>
