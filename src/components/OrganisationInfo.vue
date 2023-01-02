@@ -56,12 +56,12 @@ function deleteOrganization(name) {
 
 <template>
     <form>
-        <h1>Benvenuto a {{ this.org_info.value.name }}</h1>
+        <h1>Benvenuto a {{ this.org_info.name }}</h1>
         <ul>
-            <li>Nome: {{ this.org_info.value.name }}</li>
-            <li>Numero di impiegati: {{ this.org_info.value.employee_num }}</li>
+            <li>Nome: {{ this.org_info.name }}</li>
+            <li>Numero di impiegati: {{ this.org_info.employee_num }}</li>
         </ul>
         <br>
-        <button type="button" @click="deleteOrganization(this.org_info.value.name)">Elimina organizzazione</button>    
+        <button type="button" @click="deleteOrganization(this.org_info.name)">Elimina organizzazione</button>    
     </form>
 </template>
