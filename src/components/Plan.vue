@@ -85,15 +85,15 @@ async function createPlan(org, start_date, end_date) {
 
 <template>
   <div>
-    <h1>Piani di pulizia ({{ this.listPlans.length }})</h1>
+    <h1>Piani di pulizia ({{ $data.listPlans.length }})</h1>
     <ul>
       <h3 v-if="!Array.isArray(listPlans) || !listPlans.length">Nessun piano di pulizia</h3>
-      <li v-else v-for="plan in this.listPlans" :key="plan">
-        <RouterLink :to="'/organisations/' + this.org_name + '/plans/' + plan">{{ plan }}</RouterLink>
+      <li v-else v-for="plan in $data.listPlans" :key="plan">
+        <RouterLink :to="'/organisations/' + $props.org_name + '/plans/' + plan">{{ plan }}</RouterLink>
       </li>
     </ul>
   </div>
   <div>
-    <RouterLink :to="'/organisations/' + this.org_name + '/plans/create'">Crea piano di pulizia</RouterLink>
+    <RouterLink :to="'/organisations/' + $props.org_name + '/plans/create'">Crea piano di pulizia</RouterLink>
   </div>
 </template>

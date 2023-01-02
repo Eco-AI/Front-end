@@ -42,11 +42,11 @@ function getRobotInfo(id) {
     <form>
         <h1>Dettagli robot</h1>
         <ul>
-            <li>ID: {{ this.robot_info._id }}</li>
-            <li>Batteria: {{ this.robot_info.batteria }}%</li>
-            <li>Temperatura: {{ this.robot_info.temperatura }}°C</li>
-            <li>Capienza attuale: {{ this.robot_info.capienza_attuale }}%</li>
-            <li>Posizione attuale: {{ this.robot_info.posizione }}</li>
+            <li>ID: {{ $data.robot_info._id }}</li>
+            <li>Batteria: {{ $data.robot_info.batteria }}%</li>
+            <li>Temperatura: {{ $data.robot_info.temperatura }}°C</li>
+            <li>Capienza attuale: {{ $data.robot_info.capienza_attuale }}%</li>
+            <li>Posizione attuale: {{ $data.robot_info.posizione }}</li>
         </ul>
     </form>
 </template>

@@ -74,7 +74,7 @@ async function createPlan(org, start_date, end_date) {
     <div style="float:left;margin-right:20px;">
       <label> Zona </label>
       <input v-model="zone_id" placeholder="ID" />
-      <button type="button" @click="createPlanButton(this.org_name, this.date[0], this.date[1])">Crea piano di pulizia</button>
+      <button type="button" @click="createPlanButton($props.org_name, $data.date[0], $data.date[1])">Crea piano di pulizia</button>
     </div>
     <div style="float:left;margin-right:20px;">
       <label> Durata del piano </label>

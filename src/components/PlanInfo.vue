@@ -41,11 +41,11 @@ function getPlanInfo(id) {
     <form>
         <h1>Dettagli piano pulizia</h1>
         <ul>
-            <li>ID: {{ this.plan_info._id }}</li>
-            <li>Zona: {{ this.plan_info.ID_zona }}</li>
-            <li>Data di inzio: {{ this.plan_info.data_inizio }}</li>
-            <li>Data fine: {{ this.plan_info.data_fine }}</li>
-            <li>Robot assegnato: {{ this.plan_info.ID_robot != "" ? this.plan_info.ID_robot : "Nessun robot assegnato" }}</li>
+            <li>ID: {{ $data.plan_info._id }}</li>
+            <li>Zona: {{ $data.plan_info.ID_zona }}</li>
+            <li>Data di inzio: {{ $data.plan_info.data_inizio }}</li>
+            <li>Data fine: {{ $data.plan_info.data_fine }}</li>
+            <li>Robot assegnato: {{ $data.plan_info.ID_robot != "" ? $data.plan_info.ID_robot : "Nessun robot assegnato" }}</li>
         </ul>
     </form>
 </template>

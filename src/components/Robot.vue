@@ -77,15 +77,15 @@ async function addRobot(id, org) {
 
 <template>
     <div>
-        <h1>Robots ({{ this.listRobots.length }})</h1>
+        <h1>Robots ({{ $data.listRobots.length }})</h1>
         <ul>
-            <h3 v-if="!Array.isArray(listRobots) || !listRobots.length">Non ci sono robot associati a questa organizzazione</h3>
-            <li v-else v-for="robot in this.listRobots" :key="robot">
-                <RouterLink :to="'/organisations/' + this.org_name + '/robots/' + robot">{{ robot }}</RouterLink>
+            <h3 v-if="!Array.isArray($data.listRobots) || !$data.listRobots.length">Non ci sono robot associati a questa organizzazione</h3>
+            <li v-else v-for="robot in $data.listRobots" :key="robot">
+                <RouterLink :to="'/organisations/' + $props.org_name + '/robots/' + robot">{{ robot }}</RouterLink>
             </li>
         </ul>
     </div>
     <div>
-        <RouterLink :to="'/organisations/' + this.org_name + '/addrobot'">Aggiungi un robot</RouterLink>
+        <RouterLink :to="'/organisations/' + $props.org_name + '/addrobot'">Aggiungi un robot</RouterLink>
     </div>
 </template>

@@ -5,9 +5,6 @@ import {
 } from "../states/loggedUser.js";
 
 
-
-
-
 function logout() {
   clearLoggedUser();
 }

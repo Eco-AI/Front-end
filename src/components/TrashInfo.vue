@@ -13,7 +13,7 @@ export default {
         zone_id: Number
     },
     methods: {
-        classifyTrash
+        classifyTrash: classifyTrash
     },
     data() {
         return {
@@ -93,23 +93,23 @@ function classifyTrash(trash_id) {
     <form>
         <h1>Dettagli rifiuto non riconosciuto</h1>
         <ul>
-            <li>ID: {{ this.trash_info._id }}</li>
-            <li>Zona: {{ this.trash_info.id_zona }}</li>
-            <li>Stato classificazione: {{ this.trash_info.classificazione }}</li>
-            <li>Posizione rilevata: {{ this.trash_info.posizione }}</li>
+            <li>ID: {{ $data.trash_info._id }}</li>
+            <li>Zona: {{ $data.trash_info.id_zona }}</li>
+            <li>Stato classificazione: {{ $data.trash_info.classificazione }}</li>
+            <li>Posizione rilevata: {{ $data.trash_info.posizione }}</li>
             <div style="float: right; margin-top: -155px;">
                 <h1>Foto rifiuto</h1>
-                <img :src="this.trash_info.URL_foto" width="500" height="400">
+                <img :src="$data.trash_info.URL_foto" width="500" height="400">
             </div>
             <br>
-            <div v-if="this.wantToClassify">
+            <div v-if="$data.wantToClassify">
                 <h2>Classifica rifiuto</h2>
-                <select v-model="this.classification">
-                    <option v-for="category in this.categories" :value="category">{{ category }}</option>
+                <select v-model="$data.classification">
+                    <option v-for="category in $data.categories" :value="category">{{ category }}</option>
                 </select>
             </div>
         </ul>
     </form>
     <br>
-    <button style="float: left; margin-left:30px" @click="this.classifyTrash(this.trash_info._id)">Classifica rifiuto</button>
+    <button style="float: left; margin-left:30px" @click="classifyTrash($data.trash_info._id)">Classifica rifiuto</button>
 </template>

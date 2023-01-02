@@ -66,7 +66,7 @@ async function addRobot(id, org) {
             <div style="float:left;margin-right:20px;">
                 <label> ID Robot </label>
                 <input v-model="id_robot" placeholder="ID" />
-                <button type="button" @click="addRobotButton(this.org_name)">Associa robot</button>
+                <button type="button" @click="addRobotButton($props.org_name)">Associa robot</button>
             </div>
             
             <br />
